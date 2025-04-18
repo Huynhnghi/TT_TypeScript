@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../Category/Category.css";
+import { Button } from "@/components/ui/button";
 
 const categories = [
     { name: "Thực phẩm", image: "/images/thucpham.jfif", price: "120.000đ", sold: "1.2k" },
@@ -14,8 +14,6 @@ const categories = [
 
 export default function CategoryList() {
     const [query, setQuery] = useState<string>("");
-
-    // Lọc danh mục theo từ khóa nhập vào
     const filteredCategories = categories.filter(category =>
         category.name.toLowerCase().includes(query.trim().toLowerCase())
     );
@@ -68,8 +66,20 @@ export default function CategoryList() {
                                 <p className="text-red-500 font-bold">{category.price}</p>
                                 <p className="text-gray-300 text-sm">{category.sold} đã mua</p>
                                 <div className="flex justify-between mt-4">
-                                    <button className="btn">Xem thêm</button>
-                                    <button className="btn">Mua ngay</button>
+                                <Button
+                                    variant="outline"
+                                    className="bg-[#00BFA6] text-white uppercase tracking-[2px] cursor-pointer rounded-[10px] border-2 border-dashed border-[#00BFA6] px-[15px] py-[4px] shadow-md hover:bg-white hover:text-[#00BFA6] active:bg-[#87dbd0] transition duration-400"
+                                >
+                                    Xem thêm
+                                </Button>
+
+                                <Button
+                                    variant="outline"
+                                    className="bg-[#00BFA6] text-white uppercase tracking-[2px] cursor-pointer rounded-[10px] border-2 border-dashed border-[#00BFA6] px-[15px] py-[4px] shadow-md hover:bg-white hover:text-[#00BFA6] active:bg-[#87dbd0] transition duration-400"
+                                    >
+                                    Mua ngay
+                                </Button>
+
                                 </div>
                             </div>
                         </div>

@@ -4,7 +4,7 @@ import React from "react";
 import Carousel from "../components/CarouselSlider";
 import CategoryList from "../container/Category/CategoryList";
 import Category from "../container/Category/Category";
-import Pagination from "../components/pagination";
+import Pagination from "../components/Pagination";
 export default function HomePage() {
     const images = [
         "/images/banner1.webp",

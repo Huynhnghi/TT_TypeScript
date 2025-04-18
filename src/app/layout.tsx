@@ -1,9 +1,9 @@
 "use client";
 
 import "./globals.css";
-import Header from "./components/header";
-import Footer from "./components/footer";
-import Container from "./home/page";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Container from "./home/Page";
 
 export default function RootLayout() {
   return (

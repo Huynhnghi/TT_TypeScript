@@ -6,6 +6,7 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
@@ -59,12 +60,13 @@ export default function Header() {
                     <FontAwesomeIcon icon={faCartPlus} />
                 </p>
 
-                <button className="px-4 py-2 text-black rounded hover:bg-gray-200">
+                <Button variant="outline" className="text-black hover:bg-gray-200">
                     Sign up
-                </button>
-                <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                </Button>
+
+                <Button variant="default" className="bg-blue-600 hover:bg-blue-700">
                     Sign In
-                </button>
+                </Button>
             </div>
         </header>
     );
