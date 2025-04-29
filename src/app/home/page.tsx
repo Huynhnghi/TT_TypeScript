@@ -2,8 +2,8 @@
 
 import React from "react";
 import Carousel from "../components/CarouselSlider";
-import CategoryList from "../container/Category/CategoryList";
-import Category from "../container/Category/Category";
+import CategoryList from "../container/category/CategoryList";
+import Category from "../container/category/Category";
 import Pagination from "../components/Pagination";
 
 export default function HomePage() {
