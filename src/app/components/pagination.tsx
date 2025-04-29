@@ -12,9 +12,8 @@ export default function PaginationComponent() {
   return (
     <Pagination>
       <PaginationContent>
-        {/* PaginationPrevious với thuộc tính size */}
         <PaginationItem>
-          <PaginationPrevious href="#" size="sm">Previous</PaginationPrevious> {/* Thêm size vào đây */}
+          <PaginationPrevious href="#" size="sm">Previous</PaginationPrevious>
         </PaginationItem>
 
         {/* Các trang */}
