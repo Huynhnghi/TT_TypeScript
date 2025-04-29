@@ -2,8 +2,8 @@
 
 import React from "react";
 import Carousel from "../components/CarouselSlider";
-import CategoryList from "../container/category/CategoryList";
-import Category from "../container/category/Category";
+import CategoryList from "../container/Category/CategoryList";
+import Category from "../container/Category/Category";
 import Pagination from "../components/Pagination";
 
 export default function HomePage() {
@@ -14,7 +14,7 @@ export default function HomePage() {
 
     return (
         <>
-            {/* Carousel Section */}
+         s   {/* Carousel Section */}
             <div className="w-full h-[70vh] flex justify-center">
                 <Carousel images={images} />
             </div>
