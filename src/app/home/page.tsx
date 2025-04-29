@@ -2,9 +2,10 @@
 
 import React from "react";
 import Carousel from "../components/CarouselSlider";
-import CategoryList from "../container/Category/CategoryList";
-import Category from "../container/Category/Category";
+import CategoryList from "../container/category/CategoryList";
+import Category from "../container/category/Category";
 import Pagination from "../components/Pagination";
+
 export default function HomePage() {
     const images = [
         "/images/banner1.webp",
@@ -12,26 +13,29 @@ export default function HomePage() {
     ];
 
     return (
-        <div className="flex flex-col items-center justify-start w-full max-w-7xl mx-auto">
+        <>
             {/* Carousel Section */}
             <div className="w-full h-[70vh] flex justify-center">
                 <Carousel images={images} />
             </div>
 
-            {/* Category List Section */}
-            <div className="w-full flex flex-col items-center justify-start">
-                <CategoryList />
-            </div>
+            {/* Content Sections */}
+            <div className="flex flex-col items-center justify-start w-full max-w-7xl mx-auto">
+                {/* Category List Section */}
+                <div className="w-full flex flex-col items-center justify-start">
+                    <CategoryList />
+                </div>
 
-            {/* Category Section */}
-            <div className="w-full flex flex-col items-center justify-start">
-                <Category />
-            </div>
+                {/* Category Section */}
+                <div className="w-full flex flex-col items-center justify-start">
+                    <Category />
+                </div>
 
-            {/* Pagination Section */}
-            <div className="w-full flex flex-col items-center justify-start">
-                <Pagination/>
+                {/* Pagination Section */}
+                <div className="w-full flex flex-col items-center justify-start">
+                    <Pagination />
+                </div>
             </div>
-        </div>
+        </>
     );
 }

@@ -6,33 +6,39 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/components/ui/pagination";
 
-export default function pagination() {
+export default function PaginationComponent() {
   return (
     <Pagination>
       <PaginationContent>
+        {/* PaginationPrevious với thuộc tính size */}
         <PaginationItem>
-          <PaginationPrevious href="#" />
+          <PaginationPrevious href="#" size="sm">Previous</PaginationPrevious> {/* Thêm size vào đây */}
+        </PaginationItem>
+
+        {/* Các trang */}
+        <PaginationItem>
+          <PaginationLink href="#" size="sm">1</PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#">1</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" isActive>
+          <PaginationLink href="#" isActive size="sm">
             2
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
+          <PaginationLink href="#" size="sm">3</PaginationLink>
         </PaginationItem>
+
         <PaginationItem>
           <PaginationEllipsis />
         </PaginationItem>
+
+        {/* PaginationNext với href */}
         <PaginationItem>
-          <PaginationNext href="#" />
+          <PaginationNext href="#" size="sm">Next</PaginationNext>
         </PaginationItem>
       </PaginationContent>
     </Pagination>
-  )
+  );
 }

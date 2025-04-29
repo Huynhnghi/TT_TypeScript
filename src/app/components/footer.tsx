@@ -12,14 +12,16 @@ export default function Footer() {
 
                     <div className="mb-4 sm:mb-0">
                         <h2 className="text-xl font-bold">CÔNG TY TNHH MEU SOLUTIONS</h2>
-                        <p className="text-sm">
-                            <FontAwesomeIcon icon={faMapPin} /> Số 03 Sông Thao, Phường 2, Quận Tân Bình, TP. HCM
-                        </p>
-                        <p className="text-sm">
-                            <FontAwesomeIcon icon={faPhone} />(+84) 2871099879
-                        </p>
-                        <p className="text-sm">
-                            <FontAwesomeIcon icon={faGlobe} />{" "}
+                        <p className="text-sm flex items-center">
+                            <FontAwesomeIcon icon={faMapPin} size="sm" className="me-2 w-4 h-4" />
+                            Số 03 Sông Thao, Phường 2, Quận Tân Bình, TP. HCM
+                            </p>
+                            <p className="text-sm flex items-center">
+                            <FontAwesomeIcon icon={faPhone} size="sm" className="me-2 w-4 h-4" />
+                            (+84) 2871099879
+                            </p>
+                            <p className="text-sm flex items-center">
+                            <FontAwesomeIcon icon={faGlobe} size="sm" className="me-2 w-4 h-4" />
                             <a
                                 href="https://meu-solutions.com/"
                                 className="text-blue-500 hover:underline"

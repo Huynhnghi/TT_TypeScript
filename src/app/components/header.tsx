@@ -30,17 +30,17 @@ export default function Header() {
                 <NavigationMenu>
                     <NavigationMenuList>
                         <NavigationMenuItem>
-                            <NavigationMenuTrigger>Trang chủ</NavigationMenuTrigger>
+                            <NavigationMenuTrigger className="cursor-pointer">Trang chủ</NavigationMenuTrigger>
                         </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>
                 <NavigationMenu>
                     <NavigationMenuList>
                         <NavigationMenuItem>
-                            <NavigationMenuTrigger>Sản phẩm</NavigationMenuTrigger>
+                            <NavigationMenuTrigger className="cursor-pointer">Sản phẩm</NavigationMenuTrigger>
                             <NavigationMenuContent>
-                                <NavigationMenuLink className="w-24">Thực phẩm</NavigationMenuLink>
-                                <NavigationMenuLink>Rau củ</NavigationMenuLink>
+                                <NavigationMenuLink className="w-24 cursor-pointer">Thực phẩm</NavigationMenuLink>
+                                <NavigationMenuLink className="cursor-pointer">Rau củ</NavigationMenuLink>
                             </NavigationMenuContent>
                         </NavigationMenuItem>
                     </NavigationMenuList>
@@ -48,7 +48,7 @@ export default function Header() {
                 <NavigationMenu>
                     <NavigationMenuList>
                         <NavigationMenuItem>
-                            <NavigationMenuTrigger>Liên hệ</NavigationMenuTrigger>
+                            <NavigationMenuTrigger className="cursor-pointer">Liên hệ</NavigationMenuTrigger>
                         </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>
