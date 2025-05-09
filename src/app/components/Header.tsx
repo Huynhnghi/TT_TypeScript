@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -30,7 +31,9 @@ export default function Header() {
                 <NavigationMenu>
                     <NavigationMenuList>
                         <NavigationMenuItem>
-                            <NavigationMenuTrigger className="cursor-pointer">Trang chủ</NavigationMenuTrigger>
+                            <Link href="/" passHref>
+                                <NavigationMenuTrigger className="cursor-pointer">Trang chủ</NavigationMenuTrigger>
+                            </Link>
                         </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>

@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import Carousel from "../components/CarouselSlider";
-import CategoryList from "../container/category/CategoryList";
-import Category from "../container/category/Category";
-import Pagination from "../components/Pagination";
+import Carousel from "./components/CarouselSlider";
+import CategoryList from "./container/category/CategoryList";
+import Category from "./container/category/Category";
+//import { PaginationComponent } from "../components/Pagination";
 
 export default function HomePage() {
     const images = [
@@ -31,10 +31,10 @@ export default function HomePage() {
                     <Category />
                 </div>
 
-                {/* Pagination Section */}
+                {/* Pagination Section
                 <div className="w-full flex flex-col items-center justify-start">
-                    <Pagination />
-                </div>
+                    <PaginationComponent />
+                </div> */}
             </div>
         </>
     );
