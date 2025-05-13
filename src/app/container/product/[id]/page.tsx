@@ -3,29 +3,24 @@
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { products } from "@/app/container/category/products";
+import RelatedProducts from "@/app/components/RelatedCategories";
+import CommentModal from "@/app/components/CommentModal"; 
 import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faStarHalfAlt, faStar as faRegStar } from '@fortawesome/free-solid-svg-icons';
 
 export default function ProductDetailPage() {
   const params = useParams();
+  const id = Number(params?.id);
+  const product = products.find((item) => item.id === id);
+
   const [quantity, setQuantity] = useState(1);
-  const [comments, setComments] = useState(products.comments || []);
+  const [comments, setComments] = useState(product?.comments || []);
   const [name, setName] = useState("");
   const [text, setText] = useState("");
-  const [rating, setRating] = useState(0); 
+  const [rating, setRating] = useState(0);
 
-  const id = Number(params?.id);
-  if (isNaN(id)) {
-    return (
-      <div className="container mx-auto p-4">
-        <p className="text-red-500 font-semibold">Sản phẩm không tồn tại.</p>
-      </div>
-    );
-  }
-
-  const product = products.find((item) => item.id === id);
-  if (!product) {
+  if (isNaN(id) || !product) {
     return (
       <div className="container mx-auto p-4">
         <p className="text-red-500 font-semibold">Sản phẩm không tồn tại.</p>
@@ -35,76 +30,69 @@ export default function ProductDetailPage() {
 
   const increaseQuantity = () => setQuantity((prev) => prev + 1);
   const decreaseQuantity = () => {
-    if (quantity > 1) setQuantity((prev) => prev - 1);
+    if (quantity > 0) setQuantity((prev) => prev - 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newComment = { customer: name, rating, comment: text };
     setComments([...comments, newComment]);
     setName("");
     setText("");
-    setRating(0); // Reset rating after submitting
+    setRating(0);
   };
-
-  const handleStarClick = (starRating) => {
-    setRating(starRating); // Set rating when a star is clicked
+  const handleAddComment = (comment: { customer: string; rating: number; comment: string }) => {
+    setComments([...comments, comment]);
   };
+  
 
   return (
     <div className="container mx-auto p-4">
-      <div className="bg-gray-100 p-6 rounded shadow flex flex-col md:flex-row gap-2 md:gap-4">
-        {/* Hình ảnh sản phẩm */}
-        <div className="flex-1">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-80 max-w-md rounded ml-auto object-cover"
-          />
+      <div className="flex flex-col md:flex-row gap-5 text-lg">
+        {/* Cột trái - Hình ảnh */}
+        <div className="md:w-1/2 w-full flex">
+          <div className="p-3 w-full h-full rounded-lg border border-gray-300 shadow-md bg-gray-100">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-80 max-w-md rounded object-cover mx-auto"
+            />
+          </div>
         </div>
 
-        {/* Thông tin sản phẩm */}
-        <div className="flex-1">
-          <h1 className="text-2xl font-bold mb-4">Chi tiết sản phẩm: {product.name}</h1>
-          <p className="text-gray-700 mb-2">Tên sản phẩm: {product.name}</p>
-          <p className="text-red-500 font-semibold mb-2">Giá: {product.price}</p>
-          <p className="text-gray-600 mb-4">{product.sold ? `${product.sold} đã bán` : "Chưa có lượt mua"}</p>
+        {/* Cột phải - Thông tin */}
+        <div className="md:w-1/2 w-full flex">
+          <div className="p-3 w-full h-full rounded-lg border border-gray-300 shadow-md bg-gray-100 flex flex-col justify-between">
+            <div>
+              <h1 className="text-2xl font-bold mb-4">Chi tiết sản phẩm: {product.name}</h1>
+              <p className="text-lg text-gray-700 mb-2">Tên sản phẩm: {product.name}</p>
+              <p className="text-lg text-red-500 font-semibold mb-2">Giá: {product.price}</p>
+              <p className="text-base text-gray-600 mb-4">
+                {product.sold ? `${product.sold} đã bán` : "Chưa có lượt mua"}
+              </p>
 
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-gray-700">Số lượng:</span>
-            <Button
-              onClick={decreaseQuantity}
-              aria-label="Giảm số lượng"
-              className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 text-black-700"
-            >
-              -
-            </Button>
-            <span className="min-w-[24px] text-center">{quantity}</span>
-            <Button
-              onClick={increaseQuantity}
-              aria-label="Tăng số lượng"
-              className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 text-black-700"
-            >
-              +
-            </Button>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-lg text-gray-700">Số lượng:</span>
+                <Button onClick={decreaseQuantity}>-</Button>
+                <span className="min-w-[24px] text-center">{quantity}</span>
+                <Button onClick={increaseQuantity}>+</Button>
+              </div>
+            </div>
+            <Button className="mt-2 bg-teal-600 hover:bg-orange-600">Thêm giỏ hàng</Button>
+            <Button className="mt-2 bg-teal-600 hover:bg-orange-600">Mua ngay</Button>
           </div>
-
-          <Button className="mt-2 px-4 py-2 bg-teal-600 text-white rounded hover:bg-orange-600 cursor-pointer">
-            Mua ngay
-          </Button>
         </div>
       </div>
 
       {/* Mô tả sản phẩm */}
-      <div className="bg-gray-100 p-10 rounded shadow flex flex-col md:flex-row gap-2 md:gap-4">
-        <p className="text-gray-700 mb-2">{product.description}</p>
+      <div className="bg-gray-100 p-10 rounded shadow flex flex-col gap-4 mt-4">
+        <h1 className="text-2xl font-bold">Mô tả sản phẩm</h1>
+        <p className="text-gray-700 text-lg">{product.description}</p>
       </div>
-      
+
       {/* Đánh giá và bình luận */}
       <div className="bg-gray-100 p-6 rounded shadow mt-4">
         <h2 className="text-xl font-semibold mb-2">Đánh giá</h2>
-
-        {/* Hiển thị số sao đánh giá */}
         {product.rating ? (
           <p className="text-yellow-500 mb-2">{product.rating} ⭐</p>
         ) : (
@@ -120,12 +108,11 @@ export default function ProductDetailPage() {
                 <li key={index} className="bg-white p-3 rounded shadow text-sm">
                   <p className="font-semibold text-gray-700">{comment.customer}</p>
                   <div className="text-yellow-500">
-                    {/* Hiển thị sao cho mỗi bình luận */}
                     {Array.from({ length: 5 }, (_, i) => (
                       <span key={i}>
-                        {i < comment.rating ? (
+                        {i < Math.floor(comment.rating) ? (
                           <FontAwesomeIcon icon={faStar} />
-                        ) : i === comment.rating && comment.rating % 1 !== 0 ? (
+                        ) : i === Math.floor(comment.rating) && comment.rating % 1 !== 0 ? (
                           <FontAwesomeIcon icon={faStarHalfAlt} />
                         ) : (
                           <FontAwesomeIcon icon={faRegStar} />
@@ -142,50 +129,18 @@ export default function ProductDetailPage() {
           )}
         </div>
 
-        {/* Form nhập bình luận */}
-        <form onSubmit={handleSubmit} className="mt-4 space-y-3">
-          <input
-            type="text"
-            placeholder="Tên của bạn"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          />
+        <CommentModal
+          onSubmit={handleAddComment}
+        />
 
-          {/* Clickable stars for rating */}
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-gray-700">Đánh giá:</span>
-            <div className="flex">
-              {Array.from({ length: 5 }, (_, i) => (
-                <span
-                  key={i}
-                  className={`cursor-pointer ${i < rating ? "text-yellow-500" : "text-gray-300"}`}
-                  onClick={() => handleStarClick(i + 1)}
-                >
-                  <FontAwesomeIcon icon={faStar} size={24} />
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Textarea for comment */}
-          <textarea
-            placeholder="Viết bình luận..."
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          />
-
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Gửi bình luận
-          </button>
-        </form>
       </div>
+
+      {/* Sản phẩm liên quan */}
+      <RelatedProducts
+        currentProductId={product.id}
+        currentCategory={product.category}
+        products={products}
+      />
     </div>
   );
 }

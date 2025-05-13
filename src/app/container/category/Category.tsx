@@ -3,6 +3,7 @@ import { products } from "../category/products"; // Import products
 import Link from "next/link";
 import { PaginationComponent } from "@/app/components/Pagination";
 import { Button } from "@/components/ui/button";
+import CategoryList from "./CategoryList"; // Đảm bảo đúng path
 
 export default function CategoryProductPage() {
   const [query, setQuery] = useState("");
@@ -52,9 +53,31 @@ export default function CategoryProductPage() {
 
   return (
     <div className="p-4 bg-white min-h-screen">
+      {/* Category Images */}
+      <CategoryList onSelectCategory={(category) => setSelectedCategory(category)} />
+
+      {/* Category Filter Buttons
+      <div className="flex gap-3 flex-wrap my-4 justify-center">
+        <Button
+          variant={selectedCategory === null ? "default" : "outline"}
+          onClick={() => setSelectedCategory(null)}
+        >
+          Tất cả
+        </Button>
+        {Array.from(new Set(products.map((p) => p.category))).map((category) => (
+          <Button
+            key={category}
+            variant={selectedCategory === category ? "default" : "outline"}
+            onClick={() => setSelectedCategory(category)}
+          >
+            {category}
+          </Button>
+        ))}
+      </div> */}
+
       {/* Search Bar */}
-      <div className="p-4 bg-white shadow flex items-center justify-between">
-        <h2 className="text-xl font-bold mb-2">Tìm kiếm sản phẩm</h2>
+      <div className="p-4 bg-white shadow flex items-center justify-between flex-col sm:flex-row gap-4">
+        <h2 className="text-xl font-bold">Tìm kiếm sản phẩm</h2>
         <input
           type="text"
           placeholder="Tìm kiếm sản phẩm hoặc danh mục..."
@@ -65,57 +88,55 @@ export default function CategoryProductPage() {
         />
       </div>
 
+      
+
       {/* Category and Product List */}
       <div>
-        <h3 className="text-lg font-semibold mb-4">
-          {selectedCategory
-            ? `Danh mục: ${selectedCategory}`
-            : "Tất cả sản phẩm"}
-        </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {paginatedProducts.length > 0 ? (
-              paginatedProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="border rounded overflow-hidden shadow-sm group transition-all duration-300 transform hover:scale-105"
-                >
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-48 object-cover group-hover:opacity-80 transition-all duration-300"
-                  />
-                  <div className="p-3 bg-white group-hover:bg-teal-100 transition-all duration-300">
-                    <h4 className="font-bold group-hover:text-teal-600 transition-all duration-300">
-                      {product.name}
-                    </h4>
-                    <p className="text-red-500 group-hover:text-teal-500 transition-all duration-300">
-                      {product.price}
-                    </p>
-                    <p className="text-sm text-gray-400 group-hover:text-gray-600 transition-all duration-300">
-                      {product.sold} đã mua
-                    </p>
-                    <div className="flex gap-2 mt-2 justify-between">
-                      <Link href={`/container/product/${product.id}`}>
-                        <Button className="bg-teal-500 hover:bg-orange-600 hover:text-white text-white border border-dashed cursor-pointer transition-all duration-200">
-                          Xem thêm
-                        </Button>
-                      </Link>
+          {paginatedProducts.length > 0 ? (
+            paginatedProducts.map((product) => (
+              <div
+                key={product.id}
+                className="border rounded overflow-hidden shadow-sm group transition-all duration-300 transform hover:scale-105"
+              >
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-48 object-cover group-hover:opacity-80 transition-all duration-300"
+                />
+                <div className="p-3 bg-white group-hover:bg-teal-100 transition-all duration-300">
+                  <h4 className="font-bold group-hover:text-teal-600 transition-all duration-300">
+                    {product.name}
+                  </h4>
+                  <p className="text-red-500 group-hover:text-teal-500 transition-all duration-300">
+                    {product.price}
+                  </p>
+                  <p className="text-sm text-gray-400 group-hover:text-gray-600 transition-all duration-300">
+                    {product.sold} đã mua
+                  </p>
+                  <div className="flex gap-2 mt-2 justify-between">
+                    <Link href={`/container/product/${product.id}`}>
                       <Button className="bg-teal-500 hover:bg-orange-600 hover:text-white text-white border border-dashed cursor-pointer transition-all duration-200">
-                        Mua ngay
+                        Xem thêm
                       </Button>
-                    </div>
+                    </Link>
+                    <Button className="bg-teal-500 hover:bg-orange-600 hover:text-white text-white border border-dashed cursor-pointer transition-all duration-200">
+                      Mua ngay
+                    </Button>
                   </div>
                 </div>
-              ))
-            ) : (
-              <p className="text-gray-500 text-center">
+              </div>
+            ))
+          ) : (
+            <div className="flex justify-center items-center min-h-[200px] w-full ">
+              <p className="text-gray-500 text-center text-lg font-medium">
                 Không có sản phẩm nào trong danh mục này.
               </p>
-            )}
-          </div>
-
-
+            </div>
+          
+          )}
+        </div>
 
         {/* Pagination */}
         {paginatedProducts.length > 0 && (
