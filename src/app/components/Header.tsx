@@ -17,7 +17,7 @@ export default function Header() {
         <header className="grid grid-cols-3 sticky top-0 z-50 items-center p-4 bg-white opacity-95 shadow-md transition-all duration-300">
             
             {/* Logo */}
-            <div className="flex items-center justify-start space-x-4">
+            <div className="flex items-center justify-start space-x-4 cursor-pointer">
                 <Image
                     src="/images/logo.png"
                     alt="Mô tả hình ảnh"
@@ -59,15 +59,15 @@ export default function Header() {
 
             {/* Cart + Buttons */}
             <div className="flex justify-end space-x-4 items-center">
-                <p className="text-black text-3xl hover:text-pink-300 transition-colors duration-300">
+                <p className="text-black text-3xl hover:text-pink-300 cursor-pointer transition-colors duration-300">
                     <FontAwesomeIcon icon={faCartPlus} />
                 </p>
 
-                <Button variant="outline" className="text-black hover:bg-gray-200">
+                <Button variant="outline" className="text-black hover:bg-gray-200 cursor-pointer">
                     Sign up
                 </Button>
 
-                <Button variant="default" className="bg-blue-600 hover:bg-blue-700">
+                <Button variant="default" className="bg-blue-600 hover:bg-blue-700 cursor-pointer">
                     Sign In
                 </Button>
             </div>

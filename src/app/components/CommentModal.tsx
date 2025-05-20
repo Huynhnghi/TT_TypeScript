@@ -1,4 +1,3 @@
-// app/components/CommentModal.tsx
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -14,9 +13,9 @@ interface CommentModalProps {
 }
 
 export default function CommentModal({
-  name,
-  text,
-  rating,
+  name = "",
+  text = "",
+  rating = 0,
   onNameChange,
   onTextChange,
   onRatingChange,

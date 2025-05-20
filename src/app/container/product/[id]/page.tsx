@@ -72,14 +72,14 @@ export default function ProductDetailPage() {
               </p>
 
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-lg text-gray-700">Số lượng:</span>
+                <span className="text-lg text-gray-700 cursor-pointer">Số lượng:</span>
                 <Button onClick={decreaseQuantity}>-</Button>
-                <span className="min-w-[24px] text-center">{quantity}</span>
+                <span className="min-w-[24px] text-center cursor-pointer">{quantity}</span>
                 <Button onClick={increaseQuantity}>+</Button>
               </div>
             </div>
-            <Button className="mt-2 bg-teal-600 hover:bg-orange-600">Thêm giỏ hàng</Button>
-            <Button className="mt-2 bg-teal-600 hover:bg-orange-600">Mua ngay</Button>
+            <Button className="mt-2 bg-teal-600 hover:bg-orange-600 cursor-pointer">Thêm giỏ hàng</Button>
+            <Button className="mt-2 bg-teal-600 hover:bg-orange-600 cursor-pointer">Mua ngay</Button>
           </div>
         </div>
       </div>
@@ -130,8 +130,14 @@ export default function ProductDetailPage() {
         </div>
 
         <CommentModal
-          onSubmit={handleAddComment}
-        />
+        name={name}
+        text={text}
+        rating={rating}
+        onNameChange={setName}
+        onTextChange={setText}
+        onRatingChange={setRating}
+        onSubmit={handleSubmit}
+      />
 
       </div>
 
