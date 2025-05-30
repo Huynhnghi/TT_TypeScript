@@ -14,6 +14,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
+import { products } from "../container/category/products";
 
 export default function Header() {
   const [userEmail, setUserEmail] = useState<string | null>(null);
@@ -60,7 +61,11 @@ export default function Header() {
     setUserEmail(null);
     window.location.reload();
   };
-
+  const initialCart = [
+    { product: products[0], quantity: 2 }, // 2 gạo ST25
+    { product: products[4], quantity: 3 }, // 3 cà chua Đà Lạt
+  ];
+  
   return (
     <header className="grid grid-cols-3 sticky top-0 z-50 items-center p-4 bg-white opacity-95 shadow-md transition-all duration-300">
       {/* Logo */}
@@ -113,10 +118,12 @@ export default function Header() {
 
       {/* Cart + Auth */}
       <div className="flex justify-end space-x-4 items-center relative">
-        <p className="text-black text-3xl hover:text-pink-300 cursor-pointer transition-colors duration-300">
-          <FontAwesomeIcon icon={faCartPlus} />
-        </p>
-
+        <Link
+            href="/cart"
+            className="text-black text-3xl hover:text-pink-300 cursor-pointer transition-colors duration-300"
+          >
+            <FontAwesomeIcon icon={faCartPlus} />
+        </Link>
         {userEmail ? (
           <div className="relative" ref={dropdownRef}>
             <div

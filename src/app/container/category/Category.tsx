@@ -1,9 +1,13 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
-import { products } from "../category/products"; // Import products
+import { products } from "../category/products";
 import Link from "next/link";
 import { PaginationComponent } from "@/app/components/Pagination";
 import { Button } from "@/components/ui/button";
-import CategoryList from "./CategoryList"; // Đảm bảo đúng path
+import CategoryList from "./CategoryList";
+import { useCart } from "@/app/context/CartContext";  // 👈 Dùng hook thay vì Provider
+import { useRouter } from "next/navigation";
 
 export default function CategoryProductPage() {
   const [query, setQuery] = useState("");
@@ -13,7 +17,9 @@ export default function CategoryProductPage() {
 
   const PRODUCTS_PER_PAGE = 8;
 
-  // Filtering products by category and search query
+  const { addToCart } = useCart();  // 👈 Dùng custom hook lấy context
+  const router = useRouter();
+
   useEffect(() => {
     const filtered = products.filter((product) => {
       const matchesQuery =
@@ -27,10 +33,9 @@ export default function CategoryProductPage() {
     });
 
     setFilteredProducts(filtered);
-    setCurrentPage(1); // Reset page when filters change
+    setCurrentPage(1);
   }, [query, selectedCategory]);
 
-  // Handle search when pressing 'Enter'
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -51,31 +56,15 @@ export default function CategoryProductPage() {
     currentPage * PRODUCTS_PER_PAGE
   );
 
+  const handleBuyNow = (product: any) => {
+    addToCart(product);
+    router.push("/cart");
+  };
+
   return (
     <div className="p-4 bg-white min-h-screen">
-      {/* Category Images */}
       <CategoryList onSelectCategory={(category) => setSelectedCategory(category)} />
 
-      {/* Category Filter Buttons
-      <div className="flex gap-3 flex-wrap my-4 justify-center">
-        <Button
-          variant={selectedCategory === null ? "default" : "outline"}
-          onClick={() => setSelectedCategory(null)}
-        >
-          Tất cả
-        </Button>
-        {Array.from(new Set(products.map((p) => p.category))).map((category) => (
-          <Button
-            key={category}
-            variant={selectedCategory === category ? "default" : "outline"}
-            onClick={() => setSelectedCategory(category)}
-          >
-            {category}
-          </Button>
-        ))}
-      </div> */}
-
-      {/* Search Bar */}
       <div className="p-4 bg-white shadow flex items-center justify-between flex-col sm:flex-row gap-4">
         <h2 className="text-xl font-bold">Tìm kiếm sản phẩm</h2>
         <input
@@ -88,11 +77,7 @@ export default function CategoryProductPage() {
         />
       </div>
 
-      
-
-      {/* Category and Product List */}
       <div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {paginatedProducts.length > 0 ? (
             paginatedProducts.map((product) => (
@@ -121,7 +106,10 @@ export default function CategoryProductPage() {
                         Xem thêm
                       </Button>
                     </Link>
-                    <Button className="bg-teal-500 hover:bg-orange-600 hover:text-white text-white border border-dashed cursor-pointer transition-all duration-200">
+                    <Button
+                      onClick={() => handleBuyNow(product)}
+                      className="bg-teal-500 hover:bg-orange-600 hover:text-white text-white border border-dashed cursor-pointer transition-all duration-200"
+                    >
                       Mua ngay
                     </Button>
                   </div>
@@ -129,16 +117,14 @@ export default function CategoryProductPage() {
               </div>
             ))
           ) : (
-            <div className="flex justify-center items-center min-h-[200px] w-full ">
+            <div className="flex justify-center items-center min-h-[200px] w-full">
               <p className="text-gray-500 text-center text-lg font-medium">
                 Không có sản phẩm nào trong danh mục này.
               </p>
             </div>
-          
           )}
         </div>
 
-        {/* Pagination */}
         {paginatedProducts.length > 0 && (
           <div className="mt-6">
             <PaginationComponent
